@@ -1,17 +1,18 @@
 import express from 'express';
 import mongoose from 'mongoose';
-
-//import cors from 'cors';
+import OpenAI from 'openai';
+import cors from 'cors';
 //import methodOverride from 'method-override';
 
 export const app = express();
 
 const PORT = 3001;
-const MONGO_URL = 'mongodb+srv://2118622:gf2XbVViOGni6a8v@dbw.hebeym4.mongodb.net/';
+const MONGO_URL = 'mongodb+srv://2118622:gf2XbVViOGni6a8v@dbw.hebeym4.mongodb.net/test-proj';
 
 
 //app.use(methodOverride('_method'));
 app.use(express.json()) // "body-parser"
+app.use(cors());
 import auth from './routes/auth.js';
 //import services from './routes/services.js';
 //import users from './routes/users.js';
@@ -30,3 +31,10 @@ mongoose.connect(MONGO_URL).then(() => {
     console.log(err);
     process.exit(1);
 });
+
+
+/*
+const openai = new OpenAI({
+    apiKey: APIKey
+})// Configuration
+*/

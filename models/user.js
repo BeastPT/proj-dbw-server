@@ -50,7 +50,7 @@ const model = mongoose.model('User', userSchema)
  * @returns {User}
  */
 export async function createUser(data) {
-    return model.create(data)
+    return await model.create(data)
 }
 
 /**

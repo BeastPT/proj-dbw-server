@@ -34,7 +34,6 @@ export async function register(req, res) {
     if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/.test(password))) {
         return res.status(400).json({message: 'Invalid Password'})
     }
-
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = await createUser({ email, password: hashedPassword, username })
     const jwtoken = jwt.sign({ email, username }, SECRET_KEY)
@@ -42,14 +41,14 @@ export async function register(req, res) {
 }
 
 export async function login(req, res) {
-    const { email, password } = req.body
-    if (!(email && password)) {
+    const { username, password } = req.body
+    if (!(username && password)) {
         return res.status(400).json({message: 'Missing required fields'})
     }
 
-    const user = await getUserByData({ email })
+    const user = await getUserByData({ username })
     if (!user) {
-        return res.status(400).json({message: 'Invalid Email'})
+        return res.status(400).json({message: 'Invalid Username'})
     }
 
     if (!await bcrypt.compare(password, user.password)) {
