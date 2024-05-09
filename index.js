@@ -14,14 +14,15 @@ const MONGO_URL = 'mongodb+srv://2118622:gf2XbVViOGni6a8v@dbw.hebeym4.mongodb.ne
 app.use(express.json()) // "body-parser"
 app.use(cors());
 import auth from './routes/auth.js';
-//import services from './routes/services.js';
+import chat from './routes/chat.js';
+import service from './routes/services.js';
 //import users from './routes/users.js';
-//import support from './routes/support.js';
+import product from './routes/product.js'
 
-app.use('/api/auth', auth); // Register; Login;           Logout?; Forgot Password?; Reset Password?
-//app.use('/api/services', services) // Preços, etc, etc
-//app.use('/api/users', users) // Obter dados do usuário; Atualizar dados do usuário; Deletar conta
-//app.use('/api/support', support) // Chat Obter ajuda com AI
+app.use('/api/auth', auth); 
+app.use('/api/chat', chat);
+app.use('/api/service', service);
+app.use('/api/product', product);
 
 app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`))
 

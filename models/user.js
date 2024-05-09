@@ -12,6 +12,7 @@
  - Porta
  - Nacionalidade
  - Data de Nascimento
+ - Image URL
 
  - data (criacao)
 
