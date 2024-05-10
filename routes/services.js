@@ -1,16 +1,16 @@
 import express from 'express';
 const router = express.Router();
 
-import * as authController from '../controllers/service.js';
+import * as serviceController from '../controllers/service.js';
 import authMiddleware from '../middleware/auth.js';
 
-router.post('/create', authMiddleware, authController.createService) // Cria um novo servico
+router.post('/create', authMiddleware, serviceController.createService) // Cria um novo servico
 
-router.get('/list', authMiddleware, authController.listServices) // Lista todos os servicos do usuario
+router.get('/list', authMiddleware, serviceController.listServices) // Lista todos os servicos do usuario
 
-router.patch('/:id/edit', authMiddleware, authController.editService) // Edita um servico
+router.patch('/:id/edit', authMiddleware, serviceController.editService) // Edita um servico
 
-router.get('/:id', authMiddleware, authController.getService) // Lista todos os servicos do usuario
+router.get('/:id', authMiddleware, serviceController.getService) // Lista todos os servicos do usuario
 
 
 export default router

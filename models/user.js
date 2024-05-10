@@ -34,6 +34,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    fullname: String,
+    address: String,
+    address_number: Number,
+    postal_code: String,
+    country: String,
+    city: String,
+    nacionality: String,
+    image_url: String
 }, { timestamps: true })
 
 const model = mongoose.model('User', userSchema)
@@ -71,4 +79,9 @@ export async function getUserByData(data) {
  */
 export async function getUserById(id) {
     return await model.findById(id).exec()
+}
+
+// update user by id
+export async function updateUserById(id, data) {
+    return await model.findByIdAndUpdate(id, data, { new: true }).exec()
 }

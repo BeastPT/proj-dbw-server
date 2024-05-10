@@ -16,13 +16,14 @@ app.use(cors());
 import auth from './routes/auth.js';
 import chat from './routes/chat.js';
 import service from './routes/services.js';
-//import users from './routes/users.js';
+import users from './routes/users.js';
 import product from './routes/product.js'
 
 app.use('/api/auth', auth); 
 app.use('/api/chat', chat);
 app.use('/api/service', service);
 app.use('/api/product', product);
+app.use('/api/user', users)
 
 app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`))
 

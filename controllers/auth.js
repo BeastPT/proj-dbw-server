@@ -37,7 +37,8 @@ export async function register(req, res) {
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = await createUser({ email, password: hashedPassword, username })
     const jwtoken = jwt.sign({ email, username }, SECRET_KEY)
-    res.status(201).json({ token: jwtoken })
+    user.password = undefined
+    res.status(201).json({ token: jwtoken, user: user })
 }
 
 export async function login(req, res) {
@@ -56,5 +57,6 @@ export async function login(req, res) {
     }
 
     const jwtoken = jwt.sign({ email: user.email, username: user.username }, SECRET_KEY)
-    res.status(200).json({ token: jwtoken })
+    user.password = undefined
+    res.status(200).json({ token: jwtoken, user: user })
 }
