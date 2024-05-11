@@ -17,6 +17,16 @@ export async function editProfile(req, res) {
     const data = {}
     let error = false
     let message = []
+
+    const userP = await getUserById(req.params.id)
+    if (!userP) {
+        return res.status(404).json({message: 'User not found'})
+    }
+
+    if (userP._id != req.user.id) {
+        return res.status(403).json({message: 'Unauthorized'})
+    }
+
     if (Object.keys(content).length == 0) {
         error = true
         message.push('Properties to edit are required')

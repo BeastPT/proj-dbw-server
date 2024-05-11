@@ -31,7 +31,7 @@ export async function register(req, res) {
     }
 
     // Verifica se a senha é válida (letras, números, caracteres especiais)
-    if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/.test(password))) {
+    if (!isValidPassword(password)) {
         return res.status(400).json({message: 'Invalid Password'})
     }
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -59,4 +59,34 @@ export async function login(req, res) {
     const jwtoken = jwt.sign({ email: user.email, username: user.username }, SECRET_KEY)
     user.password = undefined
     res.status(200).json({ token: jwtoken, user: user })
+}
+
+export async function updatepassword(req, res) {
+    const { oldpassword, newpassword } = req.body
+    if (!(oldpassword && newpassword)) {
+        return res.status(400).json({message: 'Missing required fields'})
+    }
+
+    const user = await getUserByData({ email: req.user.email })
+    if (!user) {
+        return res.status(400).json({message: 'Invalid User'})
+    }
+
+    if (!await bcrypt.compare(oldpassword, user.password)) {
+        return res.status(400).json({message: 'Invalid Credentials'})
+    }
+
+    if (!isValidPassword(newpassword)) {
+        return res.status(400).json({message: 'Invalid New Password'})
+    }
+
+    const hashedPassword = await bcrypt.hash(newpassword, 10)
+    user.password = hashedPassword
+    await user.save()
+    res.status(200).json({message: 'Password updated successfully'})
+}
+
+
+function isValidPassword(password) {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/.test(password)
 }
