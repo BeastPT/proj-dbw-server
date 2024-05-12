@@ -71,7 +71,7 @@ export async function createChat(data) {
  * @returns {Chat[] | null}
  */
 export async function getChatsByUserId(UserId) {
-    return await model.find({ userId }).exec()
+    return await model.find({ userId: UserId }).select('-messages').limit(9).exec()
 }
 
 /**
@@ -81,7 +81,12 @@ export async function getChatsByUserId(UserId) {
  */
 
 export async function getChatById(id) {
-    return await model.findById(id).exec()
+    try {
+        return await model.findById(id).exec()
+    } catch (error) {
+        return null
+    }
+    
 }
 
 /**

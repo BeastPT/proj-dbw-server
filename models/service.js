@@ -78,7 +78,7 @@ export async function getServiceById(id) {
  * @returns {Service[]}
 */
 export async function getServicesByRequesterId(requesterId) {
-    return await model.find({ requester: requesterId }).exec()
+    return await model.find({ requester: requesterId }).limit(10).exec()
 }
 
 /**
@@ -89,4 +89,8 @@ export async function getServicesByRequesterId(requesterId) {
  */
 export async function updateServiceData(id, data) {
     return await model.findByIdAndUpdate(id, data, { new: true }).exec()
+}
+
+export async function incrementPrice(id, price) {
+    return await model.findByIdAndUpdate(id, { $inc: { price: price } }, { new: true }).exec()
 }
