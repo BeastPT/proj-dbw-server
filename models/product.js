@@ -111,7 +111,7 @@ const data = {
                     },
                     {
                         id: 'cripto',
-                        name: 'Crtiptomoeadas'
+                        name: 'Criptomoedas'
                     },
                 ],
             },
@@ -130,7 +130,7 @@ const data = {
                     },
                     {
                         id: 'cripto',
-                        name: 'Crtiptomoeadas',
+                        name: 'Criptomoedas',
                         image: 'cripto.jpg'
                     },
                     {
@@ -150,7 +150,7 @@ const data = {
                     },
                     {
                         id: 'alternative',
-                        name: 'Ivestimentos Alternativos',
+                        name: 'Investimentos Alternativos',
                         image: 'alternative.png'
                     },
                     {

@@ -1,11 +1,16 @@
 import * as Service from '../models/service.js'
+import { createChat, getSubjectByServiceId } from '../models/chat.js'
 
 export async function listServices(req, res) {
-    const services = await Service.getServicesByRequesterId(req.user.id)
+    const query = (await Service.getServicesByRequesterId(req.user.id)).map(service => service.toObject())
+    const services = await Promise.all(query.map(async (service) => {
+        service.subject = await getSubjectByServiceId(service._id)
+        return service
+    }))
+
     if (!services) {
         return res.status(404).json({message: 'Services not found'})
     }
-
     res.status(200).json({message: services})
 }
 
@@ -18,10 +23,10 @@ export async function createService(req, res) {
         price: 0
     })
 
-    const chat = await Chat.createChat({
+    const chat = await createChat({
         userId: req.user.id,
         type: 'service',
-        subject: 'Service - ', // Provavelmente adicionar mais informacao
+        subject: req.body.subject || 'Desconhecido', // Provavelmente adicionar mais informacao
         messages: [],
         service: service.id
     })

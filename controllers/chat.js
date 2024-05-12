@@ -16,7 +16,7 @@ export async function getMessages(req, res) {
             text: message.message,
         }
     })
-    res.status(200).json({message: msgs})
+    res.status(200).json({message: msgs, subject: chat.subject})
 }
 
 export async function listChats(req, res) {

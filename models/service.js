@@ -18,9 +18,9 @@ const serviceSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['financeiro', 'programacao', 'traducao', 'aprendizagem', 'bem-estar', 'escrita', 'outro'],
+        enum: ['market', 'programming', 'translation', 'learning', 'fitness', 'writing', 'other'],
         required: true,
-        default: 'outro'
+        default: 'other'
     },
     rating: {
         type: Number,

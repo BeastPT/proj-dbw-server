@@ -107,3 +107,7 @@ export async function getChatByServiceId(ServiceId) {
 export async function addMessage(ChatId, message) {
     return await model.findByIdAndUpdate(ChatId, { $push: { messages: message } }, { new: true }).exec()
 }
+
+export async function getSubjectByServiceId(ServiceId) {
+    return (await model.findOne({ service: ServiceId }).select('subject').exec()).subject
+}
