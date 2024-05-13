@@ -1,24 +1,3 @@
-/*
- - username
- - email
- - password
-
- - Nome Completo
- - Address
- - Telemovel
- - Código Postal
- - País
- - Cidade
- - Porta
- - Nacionalidade
- - Data de Nascimento
- - Image URL
-
- - data (criacao)
-
- /!\ VERIFICAR
-
-*/
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -85,3 +64,8 @@ export async function getUserById(id) {
 export async function updateUserById(id, data) {
     return await model.findByIdAndUpdate(id, data, { new: true }).exec()
 }
+
+
+
+
+// #### Não utilizados ####

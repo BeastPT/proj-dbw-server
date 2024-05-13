@@ -1,13 +1,14 @@
 const products = ['translation', 'market', 'programming', 'learning', 'fitness', 'writing']
 
+// Data para cada produto (fizemos um objeto e nao na base de dados porque não tinhamos intenção de ser dinamico)
 const data = {
     translation: {
         name: 'Tradução de Línguas',
         data: {
-            banner: 'bannerTranslation.jpg', // Por ordem, de cima para baixo da esquerda para direita
+            banner: 'bannerTranslation.jpg',
             popular: {
                 title: 'Traduções mais populares',
-                elements: [ // 3 elementos
+                elements: [ 
                     {
                         id: 'english',
                         name: 'Inglês'
@@ -97,10 +98,10 @@ const data = {
     market: {
         name: 'Mercado Financeiro',
         data: {
-            banner: 'bannerMarket.jpg', // Por ordem, de cima para baixo da esquerda para direita
+            banner: 'bannerMarket.jpg',
             popular: {
                 title: 'Mercados mais populares',
-                elements: [ // 3 elementos
+                elements: [ 
                     {
                         id: 'stocks',
                         name: 'Investimento em Ações'
@@ -190,10 +191,10 @@ const data = {
     programming: {
         name: 'Programação',
         data: {
-            banner: 'bannerProgramming.png', // Por ordem, de cima para baixo da esquerda para direita
+            banner: 'bannerProgramming.png',
             popular: {
                 title: 'Áreas Programação mais populares',
-                elements: [ // 3 elementos
+                elements: [ 
                     {
                         id: 'dbw',
                         name: 'Desenvolvimento Web'
@@ -286,10 +287,10 @@ const data = {
     learning: {
         name: 'Aprendizagem',
         data: {
-            banner: 'bannerlearning.jpg', // Por ordem, de cima para baixo da esquerda para direita
+            banner: 'bannerlearning.jpg',
             popular: {
                 title: 'Aprendizagens mais populares',
-                elements: [ // 3 elementos
+                elements: [ 
                     {
                         id: 'maths',
                         name: 'Matemática'
@@ -380,10 +381,10 @@ const data = {
     fitness: {
         name: 'Fitness',
         data: {
-            banner: 'bannerSports.jpg', // Por ordem, de cima para baixo da esquerda para direita
+            banner: 'bannerSports.jpg',
             popular: {
                 title: 'Áreas mais populares',
-                elements: [ // 3 elementos
+                elements: [ 
                     {
                         id: 'resistance',
                         name: 'Resistência'
@@ -473,10 +474,10 @@ const data = {
     writing: {
         name: 'Escrita',
         data: {
-            banner: 'bannerWritting.jpg', // Por ordem, de cima para baixo da esquerda para direita
+            banner: 'bannerWritting.jpg',
             popular: {
                 title: 'Áreas de Escrita populares',
-                elements: [ // 3 elementos
+                elements: [ 
                     {
                         id: 'creative',
                         name: 'Escrita Criativa'
@@ -565,12 +566,21 @@ const data = {
     },
 }
 
-
-export function getProducts() {
+export function getProducts() { // Função para obter os produtos
     return data
 }
 
-export function getGeneralProductsData() {
+export function getProduct(id) { // Função para obter um produto pelo :id
+    return data[id]
+}
+
+
+
+
+
+// #### Não utilizados ####
+
+export function getGeneralProductsData() { // Função para obter os produtos de forma geral
     let res = {}
     for (let product of products) {
         if (!data[product]) continue;
@@ -580,8 +590,4 @@ export function getGeneralProductsData() {
         }
     }
     return res
-}
-
-export function getProduct(id) {
-    return data[id]
 }

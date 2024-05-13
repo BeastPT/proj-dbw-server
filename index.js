@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3001;
 
 export const app = express();
 
-app.use(express.json())
-app.use(cors());
+app.use(express.json()) // Middleware para interpretar JSON
+app.use(cors()); // Middleware para permitir CORS (https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (Comunicacao entre servidores diferentes)
 
 
 import auth from './routes/auth.js';
@@ -24,9 +24,9 @@ app.use('/api/service', service);
 app.use('/api/product', product);
 app.use('/api/user', users)
 
-app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`))
+app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`)) // Inicia o servidor na porta 3001
 
-mongoose.connect(process.env.MONGO_URL).then(() => {
+mongoose.connect(process.env.MONGO_URL).then(() => { // Conecta-se à base de dados
     console.log("Connected to MongoDB");
 }).catch((err) => {
     console.log(err);
@@ -35,7 +35,7 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
 
 export const openai = getOpenAI()
 
-function getOpenAI() {
+function getOpenAI() { // Inicia a API da OpenAI
     if (process.env.OPENAI_KEY) {
         return new OpenAI({
             apiKey: process.env.OPENAI_KEY

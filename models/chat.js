@@ -86,16 +86,6 @@ export async function getChatById(id) {
     } catch (error) {
         return null
     }
-    
-}
-
-/**
- * 
- * @param {UUID} ServiceId
- * @returns {Chat | null}
- */
-export async function getChatByServiceId(ServiceId) {
-    return await model.findOne({ service: ServiceId }).exec()
 }
 
 /**
@@ -108,6 +98,26 @@ export async function addMessage(ChatId, message) {
     return await model.findByIdAndUpdate(ChatId, { $push: { messages: message } }, { new: true }).exec()
 }
 
+/**
+ * 
+ * @param {UUID} ChatId Chat Id
+ * @param {Message} message
+ * @returns {Chat | null}
+ */
 export async function getSubjectByServiceId(ServiceId) {
     return (await model.findOne({ service: ServiceId }).select('subject').exec()).subject
+}
+
+
+
+
+// #### Não utilizados ####
+
+/**
+ * 
+ * @param {UUID} ServiceId
+ * @returns {Chat | null}
+ */
+export async function getChatByServiceId(ServiceId) {
+    return await model.findOne({ service: ServiceId }).exec()
 }

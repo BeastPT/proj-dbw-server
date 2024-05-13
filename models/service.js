@@ -84,13 +84,23 @@ export async function getServicesByRequesterId(requesterId) {
 /**
  * 
  * @param {UUID} id Service ID
+ * @param {number} price Price to increment
+ * @returns {Service | null} Updated Document
+ */
+export async function incrementPrice(id, price) {
+    return await model.findByIdAndUpdate(id, { $inc: { price: price } }, { new: true }).exec()
+}
+
+
+
+
+// #### Não utilizados ####
+/**
+ * 
+ * @param {UUID} id Service ID
  * @param {Service} data Data to update
  * @returns {Service} Updated Document
  */
 export async function updateServiceData(id, data) {
     return await model.findByIdAndUpdate(id, data, { new: true }).exec()
-}
-
-export async function incrementPrice(id, price) {
-    return await model.findByIdAndUpdate(id, { $inc: { price: price } }, { new: true }).exec()
 }
