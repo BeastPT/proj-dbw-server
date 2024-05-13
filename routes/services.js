@@ -10,6 +10,8 @@ router.get('/list', authMiddleware, serviceController.listServices) // Lista tod
 
 router.patch('/:id/edit', authMiddleware, serviceController.editService) // Edita um servico
 
+router.get('/amount', authMiddleware, serviceController.getServicesGraph) // Lista todos os servicos do usuario
+
 router.get('/:id', authMiddleware, serviceController.getService) // Lista todos os servicos do usuario
 
 

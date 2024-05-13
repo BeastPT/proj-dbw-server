@@ -65,3 +65,18 @@ export async function editService(req, res) {  // Edita um serviço pelo :id no 
     await service.save()
     res.status(200).json({message: service}) // Retorna o serviço editado
 }
+
+export async function getServicesGraph(req, res) { // Lista a quantidade de serviços nos últimos 6 meses ()
+    if (!req.user) {
+        return res.status(401).json({message: 'Unauthorized'}) // Se o utilizador não estiver autenticado, retorna 401
+    }
+
+    const userId = req.user.id
+    let arr = []
+    try {
+        arr = await Service.getServicesAmountByLast6Months(userId)
+    } catch (error) {
+        console.log(error)
+    }
+    return res.status(200).json({message: arr})
+}

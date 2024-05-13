@@ -104,3 +104,35 @@ export async function incrementPrice(id, price) {
 export async function updateServiceData(id, data) {
     return await model.findByIdAndUpdate(id, data, { new: true }).exec()
 }
+
+/**
+ * Função para obter a quantidade de serviços criados por um utilizador num mês
+ * @param {UUID} userId Service ID
+ * @param {number} month month: 0-11
+ * @returns {number} 
+ */
+async function getServicesAmountByMonth(userId, month) {
+    try {
+        return await model.find({ requester: userId, createdAt: { $gte: new Date(new Date().getFullYear(), month, 1), $lt: new Date(new Date().getFullYear(), month + 1, 1) } }).countDocuments().exec()
+    } catch (error) {
+        return 0
+    }
+}
+
+/**
+ * Função para obter a quantidade de serviços criados por um utilizador em cada mes nos últimos 6 meses
+ * @param {UUID} userId Service ID
+ * @returns {number[]} Array with the amount of services created by the user in the last 6 months
+ */
+export async function getServicesAmountByLast6Months(userId) {
+    const month = new Date().getMonth()
+    const months = []
+    for (let i = 0; i < 6; i++) {
+        months.push((month - i) % 12)
+    }
+    const result = []
+    for (let i = 0; i < 6; i++) {
+        result.push(await getServicesAmountByMonth(userId, months[i]))
+    }
+    return result.reverse() 
+}
